@@ -1,7 +1,9 @@
 const User = require("../models/User");
 const jwt = require('jsonwebtoken');
 
-function createToken(user) {
+function createToken(user, res) {
+
+    // Pass in response so cookie can be written onto it
     // Cookie instantiation for the user
     var token = jwt.sign({
         _id: user._id,
@@ -13,9 +15,12 @@ function createToken(user) {
         maxAge: 900000,
         httpOnly: true
     });
+
+    return token
 };
 
 function queryUser(username) {
+    // Query for a given user
     User.findOne({"username": username}, function(err, user) {
         if (err) {
             
@@ -36,7 +41,7 @@ module.exports = function (server) {
 
             user.save()
             .then(user, function () {
-                var token = createToken(user)
+                var token = createToken(user, res)
 
                 console.log("This is the token created " + token) 
                 res.send(201)
@@ -49,8 +54,18 @@ module.exports = function (server) {
         const password = req.headers.password
 
         // Find the user first
+        queryUser(username)
+        .then(user, function () {
+            // Once we have the user that returned from the query operation
+            user.comparePassword(password, function(err, isMatch) {
+                if (!isMatch) {
+                    // If the two passwords do not match
+                    return res.status(401)
+                    .send({err: "Wrong username or password"});
+                }
+                createToken(user, res)
+            })
+        });
 
-
-        // Compare the password hashes
     });
 }
