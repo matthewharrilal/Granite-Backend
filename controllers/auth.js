@@ -15,6 +15,17 @@ function createToken(user) {
     });
 };
 
+function queryUser(username) {
+    User.findOne({"username": username}, function(err, user) {
+        if (err) {
+            
+            return err
+        }
+
+        return user
+    })
+}
+
 module.exports = function (server) {
     // Route hit when user signs up
     server.post("/signup", function (req, res) {
@@ -28,6 +39,18 @@ module.exports = function (server) {
                 var token = createToken(user)
 
                 console.log("This is the token created " + token) 
+                res.send(201)
             });
+    });
+
+    // POST in the sense that we are sending data not accessing through request body
+    server.post("/login", function(req, res) {
+        const username = req.headers.username
+        const password = req.headers.password
+
+        // Find the user first
+
+
+        // Compare the password hashes
     });
 }
