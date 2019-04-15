@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema
-const bcrypt = require('bcryptjs')
+const Schema = mongoose.Schema;
+const bcrypt = require('bcryptjs');
 
 const UserSchema = new Schema({
     createdAt: {
@@ -67,3 +67,5 @@ UserSchema.pre("save", function (next) {
         });
     }
 });
+
+module.exports = mongoose.Model("User", UserSchema);
