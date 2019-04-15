@@ -49,6 +49,13 @@ UserSchema.pre("save", function (next) {
         return next() 
     }
 
-
+    // Go through ten rounds of password salting 
+    bcrypt.genSalt(10, function (err, salt) {
+        // Hash users password with the given salt
+        bcrypt.hash(user.password, salt, function(err, hash) {
+            user.password = hash // Updates the plain password to be the hashed form
+            next() // Return method callback
+        });
+    });
 
 });
