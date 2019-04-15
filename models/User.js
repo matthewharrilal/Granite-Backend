@@ -20,12 +20,14 @@ const UserSchema = new Schema({
 
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
 
     githubProfile: {
         type: String,
-        required: false
+        required: false,
+        unique: true // Every github profile is unique
     },
 
     languages: [{
