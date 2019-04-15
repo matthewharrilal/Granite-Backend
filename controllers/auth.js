@@ -21,9 +21,13 @@ module.exports = function (server) {
         console.log("User has requested to sign up")
 
         // If the password confirmation stage is successful on the user behalf
-        if (req.body.password == req.body.passwordConfirmation) {
             const user = new User(req.body)
 
-        }
+            user.save()
+            .then(user, function () {
+                var token = createToken(user)
+
+                console.log("This is the token created " + token) 
+            });
     });
 }
