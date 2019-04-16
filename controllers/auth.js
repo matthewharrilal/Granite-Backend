@@ -8,7 +8,7 @@ function createToken(user, res) {
     var token = jwt.sign({
         _id: user._id,
         admin: false
-    }, process.env.SECRET, {
+    }, "test", {
         expiresIn: "60 days"
     });
     res.cookie('nToken', token, {
@@ -19,14 +19,17 @@ function createToken(user, res) {
     return token
 };
 
+
 function queryUser(username) {
     // Query for a given user
-    User.findOne({"username": username}, function(err, user) {
+    User.findOne({
+        "username": username
+    }, function (err, user) {
         if (err) {
-            
+
             return err
         }
-
+        console.log("USER => ", user)
         return user
     })
 }
@@ -37,35 +40,43 @@ module.exports = function (server) {
         console.log("User has requested to sign up")
 
         // If the password confirmation stage is successful on the user behalf
-            const user = new User(req.body)
+        const user = new User(req.body)
+        console.log("USER -> ", req.body)
 
-            user.save()
-            .then(user, function () {
+        user
+            .save()
+            .then((user) => {
                 var token = createToken(user, res)
 
-                console.log("This is the token created " + token) 
-                res.send(201)
+                console.log("This is the token created " + user)
+                res.sendStatus(201)
+            })
+            .catch(function (err) {
+                console.log("ERRRR --> ", err)
             });
     });
 
     // POST in the sense that we are sending data not accessing through request body
-    server.post("/login", function(req, res) {
+    server.post("/login", function (req, res) {
         const username = req.headers.username
         const password = req.headers.password
 
+        console.log(req.headers)
         // Find the user first
         queryUser(username)
-        .then(user, function () {
-            // Once we have the user that returned from the query operation
-            user.comparePassword(password, function(err, isMatch) {
-                if (!isMatch) {
-                    // If the two passwords do not match
-                    return res.status(401)
-                    .send({err: "Wrong username or password"});
-                }
-                createToken(user, res)
-            })
-        });
+            .then(user, function () {
+                // Once we have the user that returned from the query operation
+                user.comparePassword(password, function (err, isMatch) {
+                    if (!isMatch) {
+                        // If the two passwords do not match
+                        return res.status(401)
+                            .send({
+                                err: "Wrong username or password"
+                            });
+                    }
+                    createToken(user, res)
+                })
+            });
 
     });
 }

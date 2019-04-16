@@ -15,7 +15,8 @@ const UserSchema = new Schema({
     },
     username: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
 
     email: {
@@ -39,6 +40,7 @@ const UserSchema = new Schema({
 UserSchema.pre("save", function (next) {
     const now = new Date()
 
+    console.log("Hitting pre method")
     this.updatedAt = now // If the user schema is being called in anyway update the time its been called
 
     if (!this.createdAt) {
@@ -55,6 +57,7 @@ UserSchema.pre("save", function (next) {
     bcrypt.genSalt(10, function (err, salt) {
         // Hash users password with the given salt
         bcrypt.hash(user.password, salt, function(err, hash) {
+            console.log("User password hash => ", hash)
             user.password = hash // Updates the plain password to be the hashed form
             next() // Return method callback
         });
@@ -70,4 +73,4 @@ UserSchema.pre("save", function (next) {
     }
 });
 
-module.exports = mongoose.Model("User", UserSchema);
+module.exports = mongoose.model("User", UserSchema);
