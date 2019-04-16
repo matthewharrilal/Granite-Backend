@@ -40,7 +40,6 @@ const UserSchema = new Schema({
 UserSchema.pre("save", function (next) {
     const now = new Date()
 
-    console.log("Hitting pre method")
     this.updatedAt = now // If the user schema is being called in anyway update the time its been called
 
     if (!this.createdAt) {
@@ -49,15 +48,13 @@ UserSchema.pre("save", function (next) {
 
     // HASHING OF USER PASSWORD 
     const user = this;
-    if (!user.isModified('password')) { // If the user hasn't modified password return callback
-        return next() 
-    }
 
     // Go through ten rounds of password salting 
     bcrypt.genSalt(10, function (err, salt) {
-        // Hash users password with the given salt
+
+        // Hash users password with the given salt ... user password doesn't exist
         bcrypt.hash(user.password, salt, function(err, hash) {
-            console.log("User password hash => ", hash)
+            console.log("User password hash => ", user)
             user.password = hash // Updates the plain password to be the hashed form
             next() // Return method callback
         });
