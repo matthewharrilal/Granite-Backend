@@ -11,7 +11,6 @@ mongoose.Promise = global.Promise // What is the exact signifigance of this oper
 
 mongoose.connect(
     "mongodb://localhost/granite-db", {
-    useMongoClient: true
 });
 mongoose.connection.on("error", console.error.bind(console, "MongoDB connection Error:"));
 mongoose.set('debug', true);
