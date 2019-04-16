@@ -19,10 +19,10 @@ function createToken(user, res) {
     return token
 };
 
-
 function queryUser(username) {
     // Query for a given user
-    User.findOne({
+
+    const userQuery = User.findOne({
         "username": username
     }, function (err, user) {
         if (err) {
@@ -30,8 +30,12 @@ function queryUser(username) {
             return err
         }
         console.log("USER => ", user)
-        return user
     })
+
+    return new Promise(function (resolve, reject) {
+        resolve(userQuery)
+    });
+
 }
 
 module.exports = function (server) {
@@ -60,12 +64,17 @@ module.exports = function (server) {
     server.post("/login", function (req, res) {
         const username = req.headers.username
         const password = req.headers.password
+        
 
         console.log(req.headers)
         // Find the user first
-        queryUser(username)
-            .then(user, function () {
+        User.findOne({
+                "username": username
+            }, function (err, user) {})
+            .then(function (user) {
                 // Once we have the user that returned from the query operation
+                console.log("Found user --> ", user)
+                
                 user.comparePassword(password, function (err, isMatch) {
                     if (!isMatch) {
                         // If the two passwords do not match
