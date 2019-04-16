@@ -11,7 +11,7 @@ const UserSchema = new Schema({
     },
     password: {
         type: String,
-        select: false
+        select: false // Not going to be returned in the query results of this model
     },
     username: {
         type: String,
@@ -62,15 +62,14 @@ UserSchema.pre("save", function (next) {
             next() // Return method callback
         });
     });
-
-    // Need to enable this function to gain access to this.password ... more research on why this is neccesarry?
-    UserSchema.methods.comparePassword = function (password, next) {
-
-        // Hash the second parameter (user password) and compare it to hashed password
-        bcrypt.compare(password, this.password, function (err, isMatch) {
-            next(err, isMatch)
-        });
-    }
 });
+
+// Need to enable this function to gain access to this.password ... more research on why this is neccesarry?
+UserSchema.methods.comparePassword = function (password, next) {
+    // Hash the second parameter (user password) and compare it to hashed password
+    bcrypt.compare(password, this.password, function (err, isMatch) {
+        next(err, isMatch)
+    });
+};
 
 module.exports = mongoose.model("User", UserSchema);
