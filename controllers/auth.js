@@ -70,13 +70,18 @@ module.exports = function (server) {
         // Find the user first
         User.findOne({
                 "username": username
-            }, function (err, user) {})
+            }, function (err, user) {
+                if (err) {
+                    console.log("Err finding user ", user)
+                }
+            })
             .then(function (user) {
                 // Once we have the user that returned from the query operation
                 console.log("Found user --> ", user)
-                
+
                 user.comparePassword(password, function (err, isMatch) {
                     if (!isMatch) {
+                        console.log("Passwords do not match")
                         // If the two passwords do not match
                         return res.status(401)
                             .send({
