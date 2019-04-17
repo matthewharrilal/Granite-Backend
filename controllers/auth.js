@@ -19,24 +19,25 @@ function createToken(user, res) {
     return token
 };
 
-function queryUser(username) {
-    // Query for a given user
+// TODO: MODULARIZING QUERYING FOR USER
+// function queryUser(username) {
+//     // Query for a given user
 
-    const userQuery = User.findOne({
-        "username": username
-    }, function (err, user) {
-        if (err) {
+//     const userQuery = User.findOne({
+//         "username": username
+//     }, function (err, user) {
+//         if (err) {
 
-            return err
-        }
-        console.log("USER => ", user)
-    })
+//             return err
+//         }
+//         console.log("USER => ", user)
+//     })
 
-    return new Promise(function (resolve, reject) {
-        resolve(userQuery)
-    });
+//     return new Promise(function (resolve, reject) {
+//         resolve(userQuery)
+//     });
 
-}
+// }
 
 module.exports = function (server) {
     // Route hit when user signs up
