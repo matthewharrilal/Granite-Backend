@@ -89,6 +89,8 @@ module.exports = function (server) {
                             });
                     }
                     createToken(user, res)
+                    res.send(user)
+                    // Once we hvae created the token what can we proceed to do
                 })
             });
 
