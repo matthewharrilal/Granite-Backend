@@ -54,7 +54,7 @@ module.exports = function (server) {
                 var token = createToken(user, res)
 
                 console.log("This is the token created " + user)
-                res.sendStatus(201)
+                res.status(201)
                 res.send(user)
             })
             .catch(function (err) {
