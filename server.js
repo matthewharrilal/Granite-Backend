@@ -16,13 +16,17 @@ mongoose.connection.on("error", console.error.bind(console, "MongoDB connection 
 mongoose.set('debug', true);
 
 server.use(expressValidator())
-server.use(bodyParser.urlencoded());
+server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json())
 server.use(cookieParser())
 
 
 
 Auth(server);
+
+server.get("/", (req, res) => {
+    console.log("Hello World")
+})
 
 server.listen(3000, function () {
     console.log("Listening on port 3000")

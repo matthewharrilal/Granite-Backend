@@ -55,9 +55,14 @@ module.exports = function (server) {
 
                 console.log("This is the token created " + user)
                 res.sendStatus(201)
+                res.send(user)
             })
             .catch(function (err) {
                 console.log("ERRRR --> ", err)
+                return res.status(400)
+                    .send({
+                        err: err
+                    })
             });
     });
 
@@ -65,7 +70,7 @@ module.exports = function (server) {
     server.post("/login", function (req, res) {
         const username = req.headers.username
         const password = req.headers.password
-        
+
 
         console.log(req.headers)
         // Find the user first
