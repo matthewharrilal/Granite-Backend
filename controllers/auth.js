@@ -59,7 +59,7 @@ module.exports = function (server) {
             })
             .catch(function (err) {
                 console.log("ERRRR --> ", err)
-                return res.status(400)
+                return res.status(409)
                     .send({
                         err: err
                     })
