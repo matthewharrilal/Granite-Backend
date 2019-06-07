@@ -43,7 +43,7 @@ const UserSchema = new Schema({
         unique: true // Every github profile is unique
     },
 
-    linkedIn: {
+    linkedInProfile: {
         type: String,
         required: false,
         unique: true // Every github profile is unique
