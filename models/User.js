@@ -31,6 +31,30 @@ const UserSchema = new Schema({
         unique: true // Every github profile is unique
     },
 
+    twitterProfile: {
+        type: String,
+        required: false,
+        unique: true // Every github profile is unique
+    },
+
+    mediumProfile: {
+        type: String,
+        required: false,
+        unique: true // Every github profile is unique
+    },
+
+    linkedIn: {
+        type: String,
+        required: false,
+        unique: true // Every github profile is unique
+    },
+
+    personalWebsite: {
+        type: String,
+        required: false,
+        unique: true // Every github profile is unique
+    },
+
     languages: [{
         type: String,
         required: true
