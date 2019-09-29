@@ -19,14 +19,8 @@ const LocationSchema = new Schema({
     // }
 })
 
-// LocationSchema.pre("save", function (next) {
-//     const now = new Date()
-
-//     this.updatedAt = now
-
-//     if (!this.updatedAt) {
-//         this.updatedAt = now
-//     }
+// LocationSchema.pre("save", function() {
+//     // Delete all documents by the user id before posting the new location
 // })
 
 

@@ -46,14 +46,14 @@ module.exports = function (server) {
 
         // If the password confirmation stage is successful on the user behalf
         const user = new User(req.body)
-        console.log("USER -> ", req.body)
+        // console.log("USER -> ", req.body)
 
         user
             .save()
             .then((user) => {
                 var token = createToken(user, res)
 
-                console.log("This is the token created " + user)
+                // console.log("This is the token created " + user)
                 res.status(201)
                 res.send(user)
             })

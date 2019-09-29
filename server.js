@@ -32,11 +32,11 @@ var checkAuth = (req, res, next) => {
         req.user = null;
     } else {
         var token = req.headers.cookie.slice(7, req.headers.cookie.length );
-        console.log('This is the token present on the request ' + token)
+        // console.log('This is the token present on the request ' + token)
         var decodedToken = jwt.decode(token, {
             complete: true
         }) || {};
-        console.log('This is the decoded JWT token user ' + JSON.stringify(decodedToken.payload))
+        // console.log('This is the decoded JWT token user ' + JSON.stringify(decodedToken.payload))
         req.user = decodedToken.payload;
         res.locals.user = req.user // Every request has this middleware with it therefore every request has a scope to the local properties such as the user
     }
