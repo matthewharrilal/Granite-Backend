@@ -1,11 +1,12 @@
 const Location = require("../models/Location");
-const JSON = require("circular-json")
+const JSON = require("circular-json");
+
 module.exports = function (server) {
     server.post("/location", function (req, res) {
 
         const location = new Location(req.body)
-        console.log("User wants to post location " + JSON.stringify(location))
-
+        console.log("User wants to post location " + req.user._id)
+        location.userID = req.user._id
         
 
         location.save()
