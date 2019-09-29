@@ -16,43 +16,50 @@ const UserSchema = new Schema({
     username: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        sparse: true
     },
 
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        sparse: true
     },
 
     githubProfile: {
         type: String,
         required: false,
-        unique: true // Every github profile is unique
+        unique: true, // Every github profile is unique
+        sparse: true
     },
 
     twitterProfile: {
         type: String,
         required: false,
-        unique: true // Every github profile is unique
+        unique: true, // Every github profile is unique
+        sparse: true
     },
 
     mediumProfile: {
         type: String,
         required: false,
-        unique: true // Every github profile is unique
+        unique: true, // Every github profile is unique
+        sparse: true
     },
 
     linkedInProfile: {
         type: String,
         required: false,
-        unique: true // Every github profile is unique
+        unique: true, // Every github profile is unique
+        sparse: true
     },
 
     personalWebsite: {
         type: String,
         required: false,
-        unique: true // Every github profile is unique
+        unique: true, // Every github profile is unique
+        sparse: true
     },
 
     languages: [{

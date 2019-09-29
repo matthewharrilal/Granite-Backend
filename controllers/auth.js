@@ -94,7 +94,8 @@ module.exports = function (server) {
                                 err: "Wrong username or password"
                             });
                     }
-                    createToken(user, res)
+                    token = createToken(user, res)
+                    console.log("This is the token " + token)
                     res.send(user)
                     // Once we hvae created the token what can we proceed to do
                 })
