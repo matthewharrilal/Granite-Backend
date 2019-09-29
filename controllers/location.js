@@ -1,8 +1,12 @@
+const Location = require("../models/Location");
+const JSON = require("circular-json")
 module.exports = function (server) {
     server.post("/location", function (req, res) {
-        console.log("User wants to post location")
 
         const location = new Location(req.body)
+        console.log("User wants to post location " + JSON.stringify(location))
+
+        
 
         location.save()
             .then((location) => {
@@ -12,6 +16,7 @@ module.exports = function (server) {
             })
 
             .catch(function (err) {
+                console.log("ERRRRR -------->>>> " + err)
                 return res.status(409)
                     .send({
                         err

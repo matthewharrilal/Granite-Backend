@@ -24,7 +24,7 @@ server.use(cookieParser())
 
 
 Auth(server);
-Location(sever);
+Location(server);
 
 server.get("/", (req, res) => {
     console.log("Hello World")
