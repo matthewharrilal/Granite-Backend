@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const User = require("./models/User");
 const bodyParser = require("body-parser");
 const Auth = require("./controllers/auth");
+const Location = require("./controllers/location");
 const expressValidator = require("express-validator")
 
 mongoose.Promise = global.Promise // What is the exact signifigance of this operation?
@@ -23,6 +24,7 @@ server.use(cookieParser())
 
 
 Auth(server);
+Location(sever);
 
 server.get("/", (req, res) => {
     console.log("Hello World")
