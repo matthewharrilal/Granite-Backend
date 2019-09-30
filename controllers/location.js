@@ -41,8 +41,9 @@ module.exports = function (server) {
         // Need to fetch the location document corresponding to the user id return that and the user object corresponding
 
         var locationsQuery = async () => {
-            const location = Location.findOne ({
-                userID: req.user._id
+            const location = Location.find ({
+                // userID: req.user._id
+                userID: {$not: {$ne: req.user._id }}
             })
             await location.exec()
             return location
